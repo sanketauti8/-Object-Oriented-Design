@@ -1,0 +1,85 @@
+// Airplane Interface
+interface Airplane {
+    void requestTakeOff();
+    void requestLanding();
+    int getId();
+}
+
+// Mediator interface
+interface AirTrafficControl {
+    void requestTakeOff(Airplane airplane);
+    void requestLanding(Airplane airplane);
+}
+
+// Concrete mediator
+ class AirTrafficTower implements AirTrafficControl {
+    public void requestTakeOff(Airplane airplane) {
+        System.out.println("Airplane " + airplane.getId() + " Taking off");
+    }
+
+    public void requestLanding(Airplane airplane) {
+        System.out.println("Airplane " + airplane.getId() + " Landing");
+    }
+}
+
+// Concrete Airplane
+ class CommercialAirplane implements Airplane {
+    private AirTrafficControl mediator;
+    private int id;
+
+    public CommercialAirplane(AirTrafficControl mediator, int id) {
+        this.mediator = mediator;
+        this.id = id;
+    }
+
+    public void requestTakeOff() {
+        mediator.requestTakeOff(this);
+    }
+
+    public void requestLanding() {
+        mediator.requestLanding(this);
+    }
+
+    public int getId() {
+        return id;
+    }
+}
+
+// Concrete Airplane
+ class PrivateAirplane implements Airplane {
+    private AirTrafficControl mediator;
+    private int id;
+
+    public PrivateAirplane(AirTrafficControl mediator, int id) {
+        this.mediator = mediator;
+        this.id = id;
+    }
+
+    public void requestTakeOff() {
+        mediator.requestTakeOff(this);
+    }
+
+    public void requestLanding() {
+        mediator.requestLanding(this);
+    }
+
+    public int getId() {
+        return id;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        // Create airplanes mediator
+        AirTrafficControl mediator = new AirTrafficTower();
+
+        Airplane commercialPlane = new CommercialAirplane(mediator, 111);
+        Airplane privatePlane = new PrivateAirplane(mediator, 222);
+
+        commercialPlane.requestTakeOff();
+        commercialPlane.requestLanding();
+
+        privatePlane.requestTakeOff();
+        privatePlane.requestLanding();
+    }
+}

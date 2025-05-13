@@ -1,0 +1,68 @@
+// Abstract interface for Coffee
+interface Coffee {
+    public int getPrice();
+}
+
+// Concrete class for Coffee
+class PlainCoffee implements Coffee {
+    int price;
+
+    public PlainCoffee() {
+        this.price = 2;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
+    }
+}
+
+// Create Decorator 
+abstract class CoffeeDecorator implements Coffee {
+    Coffee decorator;
+
+    public CoffeeDecorator(Coffee decorator) {
+        this.decorator = decorator;
+    }
+
+    @Override
+    public int getPrice() {
+        return decorator.getPrice();
+    }
+}
+
+// Create concrete class for CoffeeDecorator
+class WippedCreamCoffee extends CoffeeDecorator {
+    public WippedCreamCoffee(Coffee decorator) {
+        super(decorator);
+    }
+
+    @Override
+    public int getPrice() {
+        return decorator.getPrice() + 2;
+    }
+}
+
+class AddSugar extends CoffeeDecorator {
+    public AddSugar(Coffee decorator) {
+        super(decorator);
+    }
+
+    @Override
+    public int getPrice() {
+        return decorator.getPrice() + 3;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Coffee plainCoffee = new PlainCoffee();
+        System.out.println("Plain Coffee : " + plainCoffee.getPrice());
+
+        Coffee sugar = new AddSugar(new PlainCoffee());
+        System.out.println("Plain Coffee with sugar : " + sugar.getPrice());
+
+        Coffee wippedCream = new WippedCreamCoffee(new AddSugar(new PlainCoffee()));
+        System.out.println("Plain Coffee with sugar and whipped cream : " + wippedCream.getPrice());
+    }
+}

@@ -1,0 +1,31 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+class Singleton{
+    private static Singleton instance;
+    
+    private Singleton(){};
+    
+    public void print(){
+        System.out.println("Object Created");
+    }
+    
+    public static Singleton getInstance(){
+        if(instance == null){
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+		Singleton obj = Singleton.getInstance();
+		obj.print();
+	}
+}

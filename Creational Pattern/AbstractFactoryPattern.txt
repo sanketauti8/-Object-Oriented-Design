@@ -1,0 +1,60 @@
+// Super abstract factory
+// This factory creates concrete factories for manufacturing according to region
+
+interface Car {
+    void assemble();
+}
+
+// This is a concrete factory which creates car for American region
+class AmericanCar implements Car {
+    @Override
+    public void assemble() {
+        System.out.println("American Muscle car");
+    }
+}
+
+// This is a concrete factory which creates car for European region
+class EuropeanCar implements Car {
+    @Override
+    public void assemble() {
+        System.out.println("European luxury car");
+    }
+}
+
+// Interface for product
+interface CarFactory {
+    Car getCar();
+}
+
+// Concrete class for American car
+class AmericanFactory implements CarFactory {
+    @Override
+    public Car getCar() {
+        return new AmericanCar();
+    }
+}
+
+// Concrete class for European car
+class EuropeanFactory implements CarFactory {
+    @Override
+    public Car getCar() {
+        return new EuropeanCar();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Step 1 Create factories to manufacture the cars
+        // Step 2 Use factories to create cars
+
+        CarFactory americanFactory = new AmericanFactory();
+        CarFactory europeanFactory = new EuropeanFactory();
+
+        Car americanCar = americanFactory.getCar();
+        Car europeanCar = europeanFactory.getCar();
+
+        americanCar.assemble();
+        europeanCar.assemble();
+    }
+}

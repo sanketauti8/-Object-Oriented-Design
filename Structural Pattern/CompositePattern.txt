@@ -1,0 +1,81 @@
+import java.util.ArrayList;
+
+// Component interface
+interface Task {
+    void setTitle(String title);
+    String getTitle();
+    void display();
+}
+
+// Leaf class
+class SimpleTask implements Task {
+    String title;
+
+    public SimpleTask(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public void display() {
+        System.out.println("Task: " + title);
+    }
+}
+
+// Composite class
+class TaskList implements Task {
+    String title;
+    ArrayList<Task> list;
+
+    public TaskList(String title) {
+        this.title = title;
+        list = new ArrayList<>();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public void display() {
+        System.out.println("TaskList: " + title);
+        for (Task task : list) {
+            task.display();
+        }
+    }
+
+    public void addTask(Task task) {
+        list.add(task);
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Task simpleTask1 = new SimpleTask("Simple task 1");
+        Task simpleTask2 = new SimpleTask("Simple task 2");
+        Task simpleTask3 = new SimpleTask("Simple task 3");
+
+        // Declare `taskList` as `TaskList`, not `Task`
+        TaskList taskList = new TaskList("Task list");
+        taskList.addTask(simpleTask1);
+        taskList.addTask(simpleTask2);
+        taskList.addTask(simpleTask3);
+
+        taskList.display();
+    }
+}

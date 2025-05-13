@@ -1,0 +1,37 @@
+interface Vehicle {
+    void assemble();
+}
+
+// Interface for workshop
+interface Workshop {
+    void work();
+}
+
+// Concrete workshop class for Car
+class CarWorkshop implements Workshop {
+    @Override
+    public void work() {
+        System.out.println("Building car");
+    }
+}
+
+// Concrete class for Car implementing Vehicle
+class Car implements Vehicle {
+    Workshop carWorkshop;
+
+    public Car(Workshop carWorkshop) {
+        this.carWorkshop = carWorkshop;
+    }
+
+    public void assemble() {
+        carWorkshop.work();
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Workshop carWorkshop = new CarWorkshop();  // Fixed class name
+        Vehicle car = new Car(carWorkshop);
+        car.assemble();
+    }
+}

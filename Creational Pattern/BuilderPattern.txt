@@ -1,0 +1,85 @@
+// Product class
+class Computer {
+    String cpu;
+    String ram;
+    String storage;
+
+    public void setRAM(String ram) {
+        this.ram = ram;
+    }
+
+    public void setCPU(String cpu) {
+        this.cpu = cpu;
+    }
+
+    public void setStorage(String storage) {
+        this.storage = storage;
+    }
+
+    public void displayInfo() {
+        System.out.println("Computer Configuration:");
+        System.out.println("CPU: " + cpu);
+        System.out.println("RAM: " + ram);
+        System.out.println("Storage: " + storage);
+    }
+}
+
+// Builder Interface
+interface Builder {
+    void buildCPU(String cpu);
+    void buildRAM(String ram);
+    void buildStorage(String storage);
+    Computer generate();
+}
+
+// Concrete Builder Class
+class GamingComputerBuilder implements Builder {
+    Computer comp = new Computer();
+
+    @Override
+    public void buildCPU(String cpu) {
+        comp.setCPU(cpu);
+    }
+
+    @Override
+    public void buildRAM(String ram) {
+        comp.setRAM(ram);
+    }
+
+    @Override
+    public void buildStorage(String storage) {
+        comp.setStorage(storage);
+    }
+
+    @Override
+    public Computer generate() {
+        return comp;
+    }
+}
+
+// Manager class
+class Manager {
+    Builder builder;
+
+    public Manager(Builder builder) {
+        this.builder = builder;
+    }
+
+    public Computer generate() {
+        return builder.generate();
+    }
+}
+
+// Main class
+class Main {
+    public static void main(String[] args) {
+        Builder builder = new GamingComputerBuilder();
+        builder.buildCPU("Intel i9");
+        builder.buildRAM("32GB");
+        builder.buildStorage("2TB SSD");
+        comp = builder.generate();
+
+        
+        comp.displayInfo(); // Corrected method call
+    }
+}

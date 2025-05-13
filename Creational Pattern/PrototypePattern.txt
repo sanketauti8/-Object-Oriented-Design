@@ -1,0 +1,59 @@
+/******************************************************************************
+
+       Imagine you’re working on a drawing application, and you need to create
+       and manipulate various shapes. Each shape might have different attributes
+       like color or size. Creating a new shape class for every variation becomes
+       tedious. Also, dynamically adding or removing shapes during runtime can be
+       challenging. 
+
+*******************************************************************************/
+// Prototype interface
+interface Shape{
+    public void draw();
+    public Shape clone();
+}
+
+// Concrete Prototype class
+// This class has implementation of clone method
+// It returns a clone of object with same color
+class Circle implements Shape{
+    String color;
+    
+    public Circle(String color){
+        this.color = color;
+    }
+    
+    @Override
+    public void draw(){
+        System.out.println("Circle of" + color + "color");
+    }
+    
+    @Override
+    public Shape clone(){
+        return new Circle(this.color);
+    }
+}
+
+// client class
+// Client class recieves a object of concrete prototype and the Client creats a clone and return it to the main
+class Client{
+    Shape shapePrototype;
+    
+    public Client(Shape shapePrototype){
+        this.shapePrototype = shapePrototype;
+    }
+    
+    public Shape clone(){
+        return shapePrototype.clone();
+    }
+}
+public class Main
+{
+	public static void main(String[] args) {
+		Shape circle = new Circle("Green");
+		Client client = new Client(circle);
+		Shape newCircle = client.clone();
+		newCircle.draw();
+		circle.draw();
+	}
+}

@@ -1,0 +1,89 @@
+interface SupportHandler {
+    void setNextHandler(SupportHandler nextHandler);
+    void handleRequest(Request request);
+}
+
+class Level1 implements SupportHandler {
+    private SupportHandler nextHandler;
+
+    @Override
+    public void setNextHandler(SupportHandler nextHandler) {
+        this.nextHandler = nextHandler;
+    }
+
+    @Override
+    public void handleRequest(Request request) {
+        if (request.level.equals("level1")) {
+            System.out.println("Request handled by Level 1 Support");
+        } else if (nextHandler != null) {
+            nextHandler.handleRequest(request);
+        } else {
+            System.out.println("No handler available.");
+        }
+    }
+}
+
+class Level2 implements SupportHandler {
+    private SupportHandler nextHandler;
+
+    @Override
+    public void setNextHandler(SupportHandler nextHandler) {
+        this.nextHandler = nextHandler;
+    }
+
+    @Override
+    public void handleRequest(Request request) {
+        if (request.level.equals("level2")) {
+            System.out.println("Request handled by Level 2 Support");
+        } else if (nextHandler != null) {
+            nextHandler.handleRequest(request);
+        } else {
+            System.out.println("No handler available.");
+        }
+    }
+}
+
+class Level3 implements SupportHandler {
+    private SupportHandler nextHandler;
+
+    @Override
+    public void setNextHandler(SupportHandler nextHandler) {
+        this.nextHandler = nextHandler;
+    }
+
+    @Override
+    public void handleRequest(Request request) {
+        if (request.level.equals("level3")) {
+            System.out.println("Request handled by Level 3 Support");
+        } else {
+            System.out.println("Request cannot be handled.");
+        }
+    }
+}
+
+class Request {
+    String level;
+
+    Request(String level) {
+        this.level = level;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        SupportHandler level1 = new Level1();
+        SupportHandler level2 = new Level2();
+        SupportHandler level3 = new Level3();
+
+        level1.setNextHandler(level2);
+        level2.setNextHandler(level3);
+
+        Request request1 = new Request("level1");
+        Request request2 = new Request("level2");
+        Request request3 = new Request("level3");
+
+        level1.handleRequest(request1);
+        level1.handleRequest(request2);
+        level1.handleRequest(request3);
+    }
+}

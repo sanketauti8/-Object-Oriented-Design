@@ -1,0 +1,96 @@
+import java.util.HashMap;
+
+// Flyweight interface
+interface Icon {
+    void draw(int x, int y);
+}
+
+// Concrete class for Flyweight
+class FileIcon implements Icon {
+    String type;
+    String color;
+
+    public FileIcon(String type, String color) {
+        this.type = type;
+        this.color = color;
+    }
+
+    @Override
+    public void draw(int x, int y) {
+        System.out.println("File position: " + x + "," + y);
+    }
+}
+
+class FolderIcon implements Icon {
+    String type;
+    String color;
+
+    public FolderIcon(String type, String color) {
+        this.type = type;
+        this.color = color;
+    }
+
+    @Override
+    public void draw(int x, int y) {
+        System.out.println("Folder position: " + x + "," + y);
+    }
+}
+
+// Factory for Flyweight objects
+class IconFactory {
+    private HashMap<String, Icon> map;
+
+    public IconFactory() {
+        map = new HashMap<>();
+    }
+
+    public Icon getIcon(String key) {
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+
+        Icon icon = null;
+        if (key.equals("file")) {
+            icon = new FileIcon("file", "red");
+        } else if (key.equals("folder")) {
+            icon = new FolderIcon("folder", "green");
+        } else {
+            System.out.println("Invalid type");
+            return null;
+        }
+
+        map.put(key, icon);
+        return icon;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        IconFactory factory = new IconFactory();
+
+        // Corrected to store the result in Icon type
+        Icon fileIcon = factory.getIcon("file");
+        if (fileIcon != null) {
+            fileIcon.draw(100, 200);
+            System.out.println(((FileIcon) fileIcon).color);
+        }
+
+        Icon fileIcon2 = factory.getIcon("file");
+        if (fileIcon2 != null) {
+            fileIcon2.draw(200, 300);
+            System.out.println(((FileIcon) fileIcon2).color);
+        }
+
+        Icon folderIcon = factory.getIcon("folder");
+        if (folderIcon != null) {
+            folderIcon.draw(400, 500);
+            System.out.println(((FolderIcon) folderIcon).color);
+        }
+
+        Icon folderIcon2 = factory.getIcon("folder");
+        if (folderIcon2 != null) {
+            folderIcon2.draw(600, 700);
+            System.out.println(((FolderIcon) folderIcon2).color);
+        }
+    }
+}
