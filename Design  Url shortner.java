@@ -94,9 +94,7 @@ In-memory Database (for simplicity)
 
 Uses HashMap to store URL mappings.
 
-java
-Copy
-Edit
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,12 +122,6 @@ public interface Database {
 📌 Encoder/Decoder (Hashing/Encoding URL)
 Generates short URLs using Base62 Encoding.
 
-java
-Copy
-Edit
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.util.Base64;
 
 public class EncoderDecoder {
     public String encode(String longURL) {
@@ -143,10 +135,7 @@ public class EncoderDecoder {
         }
     }
 }
-📌 Main Class (Demo)
-java
-Copy
-Edit
+
 public class URLShortenerDemo {
     public static void main(String[] args) {
         URLShortener urlShortener = new URLShortener();
@@ -162,7 +151,7 @@ public class URLShortenerDemo {
         System.out.println("Retrieved URL: " + retrievedURL);
     }
 }
-✅ 4. Key Considerations
+ 4. Key Considerations
 📌 Scalability
 Use Distributed Databases (e.g., Cassandra, DynamoDB) instead of a single in-memory database.
 
@@ -197,7 +186,7 @@ CREATE TABLE url_mapping (
     long_url TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-✅ 5. Key Points to Discuss in an Interview
+ 5. Key Points to Discuss in an Interview
 Scalability: How to handle billions of URLs efficiently.
 
 Data Persistence: Storing data across distributed databases.
